@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Human IQ | Growth & Conversion Review</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./humaniq-config.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -80,7 +81,16 @@
 
   <script>
     const STORAGE_KEY = 'humaniq-growth-review';
-    const FORM_ENDPOINT = ''; // Optional: add your endpoint later. Example: '/api/review' or external form endpoint.
+    const defaultSubmissionConfig = {
+      provider: 'formspree',
+      endpoint: '',
+      destinationLabel: 'local storage only',
+    };
+    const submissionConfig = {
+      ...defaultSubmissionConfig,
+      ...(window.HUMANIQ_CONFIG?.reviewSubmission || {}),
+    };
+    const FORM_ENDPOINT = submissionConfig.endpoint;
 
     const screens = [
       {
@@ -389,6 +399,25 @@
       document.getElementById('validationError')?.remove();
     }
 
+    function buildSubmissionFormData(payload) {
+      const formData = new FormData();
+      formData.append('_subject', 'New Human IQ Growth & Conversion Review');
+      formData.append('source', payload.source);
+      formData.append('submitted_at', payload.submittedAt);
+
+      Object.entries(payload.values).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          formData.append(key, value.join(', '));
+          return;
+        }
+
+        formData.append(key, value ?? '');
+      });
+
+      formData.append('review_payload_json', JSON.stringify(payload.values));
+      return formData;
+    }
+
     async function handleSubmit() {
       if (state.isSubmitting) return;
       state.isSubmitting = true;
@@ -405,12 +434,12 @@
         if (FORM_ENDPOINT) {
           const response = await fetch(FORM_ENDPOINT, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
+            headers: { Accept: 'application/json' },
+            body: buildSubmissionFormData(payload),
           });
           if (!response.ok) throw new Error('Submission failed');
         } else {
-          console.info('No FORM_ENDPOINT configured. Review payload saved locally only.', payload);
+          console.info(`No external submission endpoint configured. Review payload saved to local storage only.`, payload);
           localStorage.setItem(`${STORAGE_KEY}-last-submission`, JSON.stringify(payload));
         }
         state.index += 1;
