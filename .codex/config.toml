@@ -1,0 +1,15 @@
+# Keep project-level Codex config intentionally minimal.
+# Approval policy, sandbox mode, and network access are better treated
+# as operator defaults rather than hard-coded repo behavior.
+
+[project]
+name = "Human IQ"
+launch_stage = "launch-prep"
+
+[context]
+front_door_offer = "Growth & Conversion Review"
+downstream_deliverable = "Practical AI Blueprint"
+
+[guidance]
+default_mode = "lean"
+documentation_source = "docs/current-sprint.md"
