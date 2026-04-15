@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human IQ | Practical AI. Real Human Strategy.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    },
+                    colors: {
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'system-ui', '-apple-system', sans-serif; }
+        .fade-in-section { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-section.is-visible { opacity: 1; transform: none; }
+        .glow-orb { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 500px; background: rgba(16, 185, 129, 0.15); filter: blur(120px); border-radius: 50%; pointer-events: none; z-index: 0; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, opacity 0.3s ease-out; opacity: 0; }
+        .accordion-content.open { max-height: 500px; opacity: 1; }
+        .accordion-icon { transition: transform 0.3s ease; }
+        .accordion-icon.open { transform: rotate(180deg); }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+    </style>
+</head>
+<body class="bg-zinc-50 dark:bg-[#0a0a0a] text-zinc-900 dark:text-zinc-50 transition-colors duration-500 antialiased selection:bg-emerald-500/30 overflow-x-hidden relative">
+
+<!-- Chosen Palette: Apple Intelligence Inspired (Zinc-900/Black base, Zinc-50/White light, Emerald Green accents #10b981). -->
+<!-- Application Structure Plan: A high-conversion landing page SPA structured to flow from high-level value proposition (Hero) to problem identification (The Reality Check), solution positioning (Why Human IQ), specific offering (Blueprint), process transparency (How It Works), objection handling (FAQ), and a final conversion point. Interactions include smooth scrolling, theme toggling, interactive data visualization of the 'Follow-up Gap', and FAQ accordions. Designed for optimal consumption by founder-led business owners. -->
+<!-- Visualization & Content Choices: Content strictly follows messaging-pack.md. Goal: Inform & Persuade. Viz Method: A Chart.js interactive Bar Chart in the 'Reality Check' section visualizes the 'Follow-up Gap' (Time spent on manual operations vs. high-value work) before and after Human IQ. Interaction: Buttons to toggle chart state. Justification: Visualizing the operational drain makes the abstract problem concrete and supports the narrative. Library: Chart.js. Confirming NO SVG/Mermaid. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-white/70 dark:bg-black/50 backdrop-blur-xl border-b border-zinc-200 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-lg font-bold">
+                        &#10022;
+                    </div>
+                    <span class="font-semibold text-xl tracking-tight">Human IQ</span>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#problem" class="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors">The Reality Check</a>
+                    <a href="#offer" class="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors">The Blueprint</a>
+                    <a href="#process" class="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors">Process</a>
+                    <a href="#faq" class="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors">FAQ</a>
+                    
+                    <div class="flex items-center gap-4 border-l border-zinc-200 dark:border-white/10 pl-6">
+                        <button id="theme-toggle" class="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors text-zinc-600 dark:text-zinc-400 text-lg">
+                            &#9728;
+                        </button>
+                        <a href="#cta" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full font-medium transition-all duration-300 active:scale-95 bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 shadow-lg text-sm">
+                            Start Your AI Blueprint
+                        </a>
+                    </div>
+                </div>
+
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="mobile-theme-toggle" class="p-2 text-zinc-600 dark:text-zinc-400 text-lg">&#9728;</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-24 overflow-hidden min-h-[90vh] flex items-center z-10">
+            <div class="glow-orb"></div>
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center fade-in-section">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-sm font-medium mb-8 border border-emerald-500/20">
+                    <span class="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                    Human Intelligence First
+                </div>
+                
+                <h1 class="text-5xl sm:text-7xl font-semibold tracking-tight text-zinc-900 dark:text-white mb-8 leading-[1.1]">
+                    Practical AI. <br class="hidden sm:block" />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-400 dark:from-emerald-400 dark:to-emerald-200">
+                        Real Human Strategy.
+                    </span>
+                </h1>
+                
+                <p class="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Human IQ combines real human strategy with practical AI to solve business problems, improve execution, and deliver measurable results.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#cta" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium transition-all duration-300 active:scale-95 bg-emerald-500 text-white hover:bg-emerald-600 shadow-[0_0_30px_rgba(16,185,129,0.3)] text-lg">
+                        Start Your AI Blueprint <span class="text-xl">&#8594;</span>
+                    </a>
+                    <a href="#process" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium transition-all duration-300 active:scale-95 bg-white/5 border border-zinc-200 dark:border-white/10 hover:bg-zinc-50 dark:hover:bg-white/10 text-zinc-900 dark:text-white backdrop-blur-md text-lg">
+                        How It Works
+                    </a>
+                </div>
+                <p class="mt-6 text-sm text-zinc-500 flex items-center justify-center gap-2">
+                    <span class="text-emerald-500">&#10003;</span> Take our 2-minute business assessment. Reviewed by real people, not bots.
+                </p>
+            </div>
+        </section>
+
+        <section id="problem" class="py-24 sm:py-32 relative bg-zinc-100 dark:bg-white/[0.02] border-y border-zinc-200 dark:border-white/5 z-10">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <p class="text-sm font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-4">The Core Problem (The Reality Check)</p>
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="fade-in-section">
+                        <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 dark:text-white mb-6">
+                            AI tools are everywhere. Business context is not.
+                        </h2>
+                        <p class="text-lg text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed">
+                            Most businesses are overwhelmed by generic AI software that promises the world but fails to integrate into their actual daily operations. Technology alone cannot solve business problems without a deep understanding of the people, processes, and goals behind them.
+                        </p>
+                        <p class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                            The chart here demonstrates the operational reality: without practical integration, time is lost. By applying targeted AI, we reclaim hours for high-value execution.
+                        </p>
+                    </div>
+                    
+                    <div class="fade-in-section bg-white dark:bg-[#111] border border-zinc-200 dark:border-white/10 p-6 rounded-3xl shadow-xl dark:shadow-none">
+                        <div class="flex justify-between items-center mb-6 border-b border-zinc-100 dark:border-white/10 pb-4">
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">The Operational Time Drain</h3>
+                            <div class="flex gap-2">
+                                <button id="chart-before-btn" class="px-3 py-1 text-xs font-medium rounded-full bg-zinc-200 dark:bg-white/20 text-zinc-900 dark:text-white transition-colors">Before AI</button>
+                                <button id="chart-after-btn" class="px-3 py-1 text-xs font-medium rounded-full bg-transparent hover:bg-zinc-100 dark:hover:bg-white/10 text-zinc-600 dark:text-zinc-400 transition-colors border border-zinc-200 dark:border-white/10">With Human IQ</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="realityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 sm:py-32 z-10 relative">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16 fade-in-section">
+                    <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 dark:text-white mb-4">
+                        Why Human IQ? Guided by real human understanding.
+                    </h2>
+                    <p class="text-lg text-zinc-600 dark:text-zinc-400">
+                        Human IQ helps businesses get better results with practical AI solutions guided by real human understanding.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="fade-in-section bg-zinc-50 dark:bg-black/40 border border-zinc-200 dark:border-white/10 p-8 rounded-3xl hover:bg-white dark:hover:bg-white/5 transition-colors group">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-6 text-2xl group-hover:scale-110 transition-transform">
+                            &#9874;
+                        </div>
+                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-white mb-3">Strategy Before Software</h3>
+                        <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                            We don't start with technology. We start by understanding how your business actually runs, identifying the real bottlenecks that are slowing you down or costing you money.
+                        </p>
+                    </div>
+
+                    <div class="fade-in-section bg-zinc-50 dark:bg-black/40 border border-zinc-200 dark:border-white/10 p-8 rounded-3xl hover:bg-white dark:hover:bg-white/5 transition-colors group" style="transition-delay: 100ms;">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-6 text-2xl group-hover:scale-110 transition-transform">
+                            &#9881;
+                        </div>
+                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-white mb-3">Practicality Over Hype</h3>
+                        <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                            No theoretical tech jargon or complex autonomous architectures. We design simple, practical solutions that your team can actually use to get better results today.
+                        </p>
+                    </div>
+
+                    <div class="fade-in-section bg-zinc-50 dark:bg-black/40 border border-zinc-200 dark:border-white/10 p-8 rounded-3xl hover:bg-white dark:hover:bg-white/5 transition-colors group" style="transition-delay: 200ms;">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-6 text-2xl group-hover:scale-110 transition-transform">
+                            &#10047;
+                        </div>
+                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-white mb-3">Built for Your Reality</h3>
+                        <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                            Generic AI gives generic answers. Every solution we build is shaped by real human insight to perfectly match your brand voice, customer needs, and operational realities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="offer" class="py-24 sm:py-32 relative bg-zinc-900 dark:bg-[#111] text-white z-10 overflow-hidden">
+            <div class="absolute inset-0 bg-emerald-500/5 blur-[100px] rounded-full w-[600px] h-[600px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            <div class="max-w-5xl mx-auto px-6 lg:px-8 relative z-10 text-center fade-in-section">
+                <p class="text-sm font-medium text-emerald-400 uppercase tracking-widest mb-4">Our Starting Point</p>
+                <h2 class="text-4xl sm:text-5xl font-semibold tracking-tight mb-6">
+                    The Practical AI Blueprint
+                </h2>
+                <p class="text-xl text-zinc-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+                    We don’t guess. We map it out. The Practical AI Blueprint is a focused, custom roadmap detailing exactly where and how practical AI can be implemented in your business to save time and improve execution. No fluff, just a clear plan of action designed specifically for your operations.
+                </p>
+                <div class="inline-flex items-center justify-center p-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                    <span class="px-6 py-2 text-sm text-zinc-200">&#10003; Bridging the gap between AI potential and practical execution.</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="py-24 sm:py-32 z-10 relative">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="mb-16 fade-in-section">
+                    <p class="text-sm font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-4">The Process</p>
+                    <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 dark:text-white mb-4">
+                        How we build your Blueprint.
+                    </h2>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+                    <div class="hidden lg:block absolute top-12 left-0 w-full h-[1px] bg-zinc-200 dark:bg-white/10"></div>
+                    
+                    <div class="relative z-10 fade-in-section">
+                        <div class="w-24 h-24 rounded-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-white/10 flex items-center justify-center text-2xl font-light text-zinc-400 dark:text-zinc-500 mb-6 shadow-sm">
+                            01
+                        </div>
+                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-white mb-2">Share Your Context</h3>
+                        <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+                            Fill out our brief operational assessment. Tell us how your business runs, where you spend the most time, and where you want to grow.
+                        </p>
+                    </div>
+
+                    <div class="relative z-10 fade-in-section" style="transition-delay: 100ms;">
+                        <div class="w-24 h-24 rounded-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-white/10 flex items-center justify-center text-2xl font-light text-zinc-400 dark:text-zinc-500 mb-6 shadow-sm">
+                            02
+                        </div>
+                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-white mb-2">Human Review</h3>
+                        <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+                            Our strategic team personally reviews your business context. No automated generic reports. We look for the clearest, highest-ROI opportunities.
+                        </p>
+                    </div>
+
+                    <div class="relative z-10 fade-in-section" style="transition-delay: 200ms;">
+                        <div class="w-24 h-24 rounded-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-white/10 flex items-center justify-center text-2xl font-light text-zinc-400 dark:text-zinc-500 mb-6 shadow-sm">
+                            03
+                        </div>
+                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-white mb-2">The Blueprint Delivery</h3>
+                        <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+                            We present your custom Practical AI Blueprint—showing you exactly what solutions make sense for you, what they will cost, and how they will work.
+                        </p>
+                    </div>
+
+                    <div class="relative z-10 fade-in-section" style="transition-delay: 300ms;">
+                        <div class="w-24 h-24 rounded-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-white/10 flex items-center justify-center text-2xl font-light text-zinc-400 dark:text-zinc-500 mb-6 shadow-sm">
+                            04
+                        </div>
+                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-white mb-2">Seamless Implementation</h3>
+                        <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+                            If you love the plan, our team builds, integrates, and trains you on your new systems. Done for you, from start to finish.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-24 sm:py-32 bg-zinc-100 dark:bg-white/[0.02] border-y border-zinc-200 dark:border-white/5 z-10 relative">
+            <div class="max-w-3xl mx-auto px-6 lg:px-8">
+                <div class="fade-in-section text-center mb-12">
+                    <p class="text-sm font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-4">Clarity</p>
+                    <h2 class="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-white">
+                        FAQ
+                    </h2>
+                </div>
+
+                <div class="space-y-4" id="faq-container">
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="py-24 sm:py-32 relative overflow-hidden z-10">
+            <div class="absolute inset-0 bg-emerald-500/5 dark:bg-emerald-500/10 blur-[120px] rounded-full w-[800px] h-[800px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10 text-center fade-in-section">
+                <h2 class="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-900 dark:text-white mb-6">
+                    Ready to see what practical AI can do for you?
+                </h2>
+                <p class="text-xl text-zinc-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    It starts with understanding your business. Take two minutes to tell us about your operations. Our team will review your context and show you exactly where a custom AI solution can drive real results.
+                </p>
+                <button class="inline-flex items-center justify-center gap-2 px-10 py-5 rounded-full font-medium transition-all duration-300 active:scale-95 bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(255,255,255,0.1)] text-xl w-full sm:w-auto">
+                    Start Your AI Blueprint <span class="text-2xl">&#8594;</span>
+                </button>
+                <p class="mt-6 text-sm text-zinc-500 dark:text-zinc-400 flex items-center justify-center gap-2 font-medium">
+                    <span class="text-emerald-500">&#10003;</span> 100% human-reviewed. No commitment required.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 border-t border-zinc-200 dark:border-white/10 bg-white dark:bg-black relative z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-lg bg-emerald-500 flex items-center justify-center text-white text-xs font-bold">
+                    &#10022;
+                </div>
+                <span class="font-medium text-zinc-900 dark:text-white">Human IQ Consulting</span>
+            </div>
+            <div class="text-sm text-zinc-500 dark:text-zinc-400">
+                &copy; <span id="year"></span> Human IQ. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const state = {
+            isDarkMode: true,
+            chartState: 'before', 
+            faqData: [
+                {
+                    q: "What happens after I click 'Start Your AI Blueprint'?",
+                    a: "You'll be taken to a brief, 2-minute questionnaire about your business. Once submitted, our human strategy team will review your answers to determine if and how practical AI can help you, and we'll reach out with next steps."
+                },
+                {
+                    q: "Do I need any technical skills or coding knowledge?",
+                    a: "Absolutely zero. We handle all the technical implementation, integration, and setup. We deliver finished, practical solutions that are ready for you to use."
+                },
+                {
+                    q: "Are you just selling me an AI software subscription?",
+                    a: "No. Human IQ is a consulting and implementation partner. We act as your strategic guides, selecting and building the right tools specifically for your unique workflows."
+                },
+                {
+                    q: "Is this only for large tech companies?",
+                    a: "Not at all. We specialize in helping founder-led businesses and service providers. If you have daily workflows, client communications, or operational bottlenecks, we can help streamline them."
+                }
+            ],
+            chartData: {
+                before: [65, 20, 15],
+                after: [15, 60, 25],
+                labels: ['Admin/Follow-up', 'Core Execution', 'Strategy/Growth']
+            }
+        };
+
+        const elements = {
+            html: document.documentElement,
+            themeToggle: document.getElementById('theme-toggle'),
+            mobileThemeToggle: document.getElementById('mobile-theme-toggle'),
+            faqContainer: document.getElementById('faq-container'),
+            yearSpan: document.getElementById('year'),
+            navbar: document.getElementById('navbar'),
+            chartBeforeBtn: document.getElementById('chart-before-btn'),
+            chartAfterBtn: document.getElementById('chart-after-btn')
+        };
+
+        elements.yearSpan.textContent = new Date().getFullYear();
+
+        const updateThemeUI = () => {
+            const icon = state.isDarkMode ? '&#9728;' : '&#9789;'; 
+            elements.themeToggle.innerHTML = icon;
+            elements.mobileThemeToggle.innerHTML = icon;
+            if(state.isDarkMode) {
+                elements.html.classList.add('dark');
+            } else {
+                elements.html.classList.remove('dark');
+            }
+            if(window.myChart) {
+                window.myChart.options.scales.x.ticks.color = state.isDarkMode ? '#a1a1aa' : '#52525b';
+                window.myChart.options.scales.y.ticks.color = state.isDarkMode ? '#a1a1aa' : '#52525b';
+                window.myChart.options.plugins.legend.labels.color = state.isDarkMode ? '#e4e4e7' : '#18181b';
+                window.myChart.update();
+            }
+        };
+
+        const toggleTheme = () => {
+            state.isDarkMode = !state.isDarkMode;
+            updateThemeUI();
+        };
+
+        elements.themeToggle.addEventListener('click', toggleTheme);
+        elements.mobileThemeToggle.addEventListener('click', toggleTheme);
+        updateThemeUI();
+
+        const renderFAQ = () => {
+            elements.faqContainer.innerHTML = '';
+            state.faqData.forEach((item, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left bg-white dark:bg-white/[0.02] border border-zinc-200 dark:border-white/10 rounded-2xl p-6 transition-all hover:bg-zinc-50 dark:hover:bg-white/5';
+                btn.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-medium text-zinc-900 dark:text-white pr-8">${item.q}</h3>
+                        <span class="accordion-icon text-zinc-400 text-xl flex-shrink-0" id="icon-${index}">&#9662;</span>
+                    </div>
+                    <div class="accordion-content mt-4" id="content-${index}">
+                        <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">${item.a}</p>
+                    </div>
+                `;
+                
+                btn.addEventListener('click', () => {
+                    const content = document.getElementById(`content-${index}`);
+                    const icon = document.getElementById(`icon-${index}`);
+                    const isOpen = content.classList.contains('open');
+                    
+                    document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+                    document.querySelectorAll('.accordion-icon').forEach(el => el.classList.remove('open'));
+                    
+                    if (!isOpen) {
+                        content.classList.add('open');
+                        icon.classList.add('open');
+                    }
+                });
+                
+                elements.faqContainer.appendChild(btn);
+            });
+        };
+        renderFAQ();
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                elements.navbar.classList.add('shadow-sm');
+            } else {
+                elements.navbar.classList.remove('shadow-sm');
+            }
+        });
+
+        const initChart = () => {
+            const ctx = document.getElementById('realityChart').getContext('2d');
+            
+            window.myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: state.chartData.labels,
+                    datasets: [{
+                        label: '% of Weekly Hours',
+                        data: state.chartData.before,
+                        backgroundColor: [
+                            'rgba(244, 63, 94, 0.8)', 
+                            'rgba(16, 185, 129, 0.4)', 
+                            'rgba(16, 185, 129, 0.2)'  
+                        ],
+                        borderColor: [
+                            'rgba(244, 63, 94, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(16, 185, 129, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 800,
+                        easing: 'easeOutQuart'
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            padding: 12,
+                            titleFont: { size: 14, family: 'system-ui' },
+                            bodyFont: { size: 14, family: 'system-ui' },
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + '% of Time';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(150, 150, 150, 0.1)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                },
+                                color: state.isDarkMode ? '#a1a1aa' : '#52525b',
+                                font: { family: 'system-ui' }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: state.isDarkMode ? '#a1a1aa' : '#52525b',
+                                font: { family: 'system-ui', weight: '500' },
+                                callback: function(value) {
+                                    const label = this.getLabelForValue(value);
+                                    if (label.length > 16) {
+                                        return label.substr(0, 16) + '...';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        const updateChart = (targetState) => {
+            state.chartState = targetState;
+            
+            if(targetState === 'before') {
+                elements.chartBeforeBtn.className = 'px-3 py-1 text-xs font-medium rounded-full bg-zinc-200 dark:bg-white/20 text-zinc-900 dark:text-white transition-colors';
+                elements.chartAfterBtn.className = 'px-3 py-1 text-xs font-medium rounded-full bg-transparent hover:bg-zinc-100 dark:hover:bg-white/10 text-zinc-600 dark:text-zinc-400 transition-colors border border-zinc-200 dark:border-white/10';
+                
+                window.myChart.data.datasets[0].data = state.chartData.before;
+                window.myChart.data.datasets[0].backgroundColor = [
+                    'rgba(244, 63, 94, 0.8)', 
+                    'rgba(16, 185, 129, 0.4)',
+                    'rgba(16, 185, 129, 0.2)' 
+                ];
+            } else {
+                elements.chartAfterBtn.className = 'px-3 py-1 text-xs font-medium rounded-full bg-zinc-200 dark:bg-white/20 text-zinc-900 dark:text-white transition-colors';
+                elements.chartBeforeBtn.className = 'px-3 py-1 text-xs font-medium rounded-full bg-transparent hover:bg-zinc-100 dark:hover:bg-white/10 text-zinc-600 dark:text-zinc-400 transition-colors border border-zinc-200 dark:border-white/10';
+                
+                window.myChart.data.datasets[0].data = state.chartData.after;
+                window.myChart.data.datasets[0].backgroundColor = [
+                    'rgba(16, 185, 129, 0.2)', 
+                    'rgba(16, 185, 129, 0.9)', 
+                    'rgba(16, 185, 129, 0.6)'  
+                ];
+            }
+            window.myChart.update();
+        };
+
+        elements.chartBeforeBtn.addEventListener('click', () => updateChart('before'));
+        elements.chartAfterBtn.addEventListener('click', () => updateChart('after'));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initChart();
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in-section').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if(rect.top < window.innerHeight) {
+                        el.classList.add('is-visible');
+                    }
+                });
+            }, 100);
+        });
+
+    </script>
+</body>
+</html>
