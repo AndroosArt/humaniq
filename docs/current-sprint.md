@@ -23,6 +23,11 @@ Move from integration into live founder operating mode for the Growth & Conversi
 +First real founder ops cycle run: 2026-04-15 — test submission validated end to end
 +Two small friction fixes applied to `lib/humaniq-review-ops.js`: greeting now uses first name only; medium follow-up prose cleaned up
 +Formspree inbox delivery is still unverified in automated testing — manual check required
++Repo-side submit handling is now clearer for launch: success state explains expected manual follow-up, failure state no longer drops to a generic alert, and latest submit attempt/status is preserved in local storage for safer testing
++Site deployed to Vercel: https://humaniq.vercel.app — serving from repo root via vercel.json so /lib/ assets resolve correctly
++GoDaddy DNS updated: A record (@) → 216.198.79.1, CNAME (www) → e798c5c9d7601522.vercel-dns-017.com
++Both humaniqconsulting.com and www.humaniqconsulting.com are connected and verified as Valid Configuration in Vercel
++Formspree endpoint configured as https://formspree.io/f/xaqaqawe — live submission test on deployed domain still needed
 
 ## In Scope Now
 +Run the first real founder ops cycle end to end
@@ -39,10 +44,10 @@ Move from integration into live founder operating mode for the Growth & Conversi
 
 ## Active Priorities
 1. Manually verify Formspree notification delivery (highest remaining risk)
-2. Confirm pricing / scope language is set on the landing page
-3. Test landing page CTA and intake on mobile device
-4. Start the first live review-to-Practical AI Blueprint conversion workflow
-5. Capture any recurring manual friction before considering automation
+2. Confirm Formspree success behavior, limits, and any provider-side autoresponder settings manually
+3. Confirm pricing / scope language is set on the landing page
+4. Test landing page CTA and intake on mobile device
+5. Start the first live review-to-Practical AI Blueprint conversion workflow
 
 ## Live Flow
 +Landing page CTA sends visitors to `site/humaniq-review.html`
@@ -50,7 +55,7 @@ Move from integration into live founder operating mode for the Growth & Conversi
 +On submit, the intake posts the review to the external endpoint configured in `site/humaniq-config.js`
 +The intake now also evaluates the submission with `lib/humaniq-review-ops.js` and attaches the founder ops summary to the submitted payload when available
 +The submission payload now includes `ops_founder_review_snapshot` and `ops_tracker_row_csv` to support inbox-first review and manual tracker updates
-+The intake keeps a local copy of the latest submitted payload as a safety net during testing
++The intake keeps a local copy of the latest submitted payload and latest submit attempt/status as a safety net during testing
 +New submissions route into Formspree first for launch-speed reliability, then into founder review, tracker updates, and follow-up
 
 ## Expected Asset Targets
