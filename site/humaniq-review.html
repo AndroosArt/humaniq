@@ -6,6 +6,7 @@
   <title>Human IQ | Growth & Conversion Review</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="./humaniq-config.js"></script>
+  <script src="../lib/humaniq-review-ops.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -145,7 +146,7 @@
       { name: 'looking_for_support', label: 'Are you actively looking for support to improve this process?', type: 'single', required: true, section: 'Goals & Fit', options: ['Yes, immediately','Yes, soon','Maybe','Just exploring'] },
       { name: 'investment_range', label: 'What level of investment are you open to if the solution is a strong fit?', type: 'single', required: true, section: 'Goals & Fit', options: ['Under $2,500','$2,500–$5,000','$5,000–$10,000','$10,000+','Not sure yet'] },
       { name: 'best_time_for_call', label: 'What is the best time for a strategy call?', type: 'text', required: false, section: 'Goals & Fit' },
-      { type: 'thankyou', title: 'Thanks — Your Review Is In', description: 'Your responses have been captured. We’ll review them and use them to shape a tailored growth and conversion recommendation.', helper: 'For launch, you can keep this as a thank-you screen or later route stronger leads to an optional booking step.' }
+      { type: 'thankyou', title: 'Thanks — Your Review Is In', description: 'Your responses have been captured. We’ll review them personally and follow up with a tailored recommendation within 1–2 business days.', helper: 'Keep an eye on your inbox. If you have questions in the meantime, you can reply directly to our confirmation email.' }
     ];
 
     const state = {
@@ -415,7 +416,59 @@
       });
 
       formData.append('review_payload_json', JSON.stringify(payload.values));
+
+      if (payload.opsEvaluation) {
+        formData.append('lead_tier', payload.opsEvaluation.tier);
+        formData.append('response_sla', payload.opsEvaluation.responseSla);
+        formData.append('primary_problem_category', payload.opsEvaluation.primaryProblem);
+        formData.append('secondary_problem_category', payload.opsEvaluation.secondaryProblem || '');
+        formData.append('engagement_recommendation', payload.opsEvaluation.engagementRecommendation);
+        formData.append('offer_blueprint_conversation', payload.opsEvaluation.offerBlueprintConversation ? 'Yes' : 'No');
+        formData.append('ops_summary', payload.opsEvaluation.summary);
+        formData.append('ops_follow_up_subject', payload.opsEvaluation.followUp.subject);
+        formData.append('ops_follow_up_body', payload.opsEvaluation.followUp.body);
+        formData.append('ops_tracker_row_json', JSON.stringify(payload.opsEvaluation.trackerRow));
+        formData.append('ops_evaluation_json', JSON.stringify(payload.opsEvaluation));
+      }
+
       return formData;
+    }
+
+    function buildOpsPayload(values) {
+      return {
+        businessName: values.business_name,
+        website: values.website,
+        contactName: values.contact_name,
+        email: values.email,
+        phone: values.phone,
+        industry: values.industry,
+        teamSize: values.team_size,
+        monthlyRevenueRange: values.monthly_revenue_range,
+        leadSources: values.lead_sources,
+        monthlyLeadVolume: values.monthly_lead_volume,
+        enoughLeads: values.enough_leads,
+        definedQualificationProcess: values.defined_qualification_process,
+        unqualifiedLeadsReachCalls: values.unqualified_reaching_calls,
+        responseSpeed: values.response_speed,
+        followUpConsistency: values.follow_up_consistency,
+        pipelineOrganization: values.pipeline_organization,
+        urgency: values.urgency,
+        lookingForSupport: values.looking_for_support,
+        investmentRange: values.investment_range,
+        biggestBlocker: values.biggest_blocker,
+        topGrowthPriority: values.ninety_day_priority
+      };
+    }
+
+    function evaluateOps(values) {
+      if (!window.HumanIQReviewOps?.evaluateReviewSubmission) return null;
+
+      try {
+        return window.HumanIQReviewOps.evaluateReviewSubmission(buildOpsPayload(values));
+      } catch (error) {
+        console.warn('Human IQ review ops evaluation skipped.', error);
+        return null;
+      }
     }
 
     async function handleSubmit() {
@@ -424,10 +477,12 @@
       nextBtn.disabled = true;
       nextBtn.textContent = 'Submitting...';
 
+      const opsEvaluation = evaluateOps(state.values);
       const payload = {
         submittedAt: new Date().toISOString(),
         source: 'human-iq-custom-review',
         values: state.values,
+        opsEvaluation,
       };
 
       try {
@@ -440,8 +495,8 @@
           if (!response.ok) throw new Error('Submission failed');
         } else {
           console.info(`No external submission endpoint configured. Review payload saved to local storage only.`, payload);
-          localStorage.setItem(`${STORAGE_KEY}-last-submission`, JSON.stringify(payload));
         }
+        localStorage.setItem(`${STORAGE_KEY}-last-submission`, JSON.stringify(payload));
         state.index += 1;
         render();
       } catch (error) {

@@ -1,0 +1,29 @@
+# Lead Tracker Columns
+
+Use these columns in Google Sheets, Airtable, Notion, or your preferred tracker:
+
+- Date submitted
+- Business name
+- Website
+- Primary contact
+- Email
+- Phone
+- Industry
+- Team size
+- Monthly revenue range
+- Lead source
+- Monthly lead volume
+- Primary problem category
+- Secondary problem category
+- Fit score
+- Revenue opportunity level
+- Urgency
+- Investment range
+- Engagement recommendation
+- Lead tier
+- Response SLA
+- Offer Blueprint conversation
+- Status
+- Owner
+- Next action
+- Notes

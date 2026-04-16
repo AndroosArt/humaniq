@@ -23,7 +23,7 @@
 - [x] Finalize intake flow
 - [x] Configure a live submission destination for the custom intake
 - [ ] Test landing page CTA behavior on desktop and mobile
-- [ ] Prepare founder operating notes for delivery and follow-up
+- [x] Prepare founder operating notes for delivery and follow-up
 
 ## Post-Setup
 - [x] Start the first real sprint in `docs/current-sprint.md`
