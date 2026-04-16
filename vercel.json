@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/", "destination": "/site/index.html" },
+    { "source": "/index.html", "destination": "/site/index.html" },
     { "source": "/humaniq-review.html", "destination": "/site/humaniq-review.html" },
     { "source": "/humaniq-config.js", "destination": "/site/humaniq-config.js" },
     { "source": "/review", "destination": "/site/humaniq-review.html" }
