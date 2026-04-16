@@ -102,7 +102,7 @@
         type: 'welcome',
         title: 'Start Your Growth & Conversion Review',
         description: 'Complete this short intake so we can review how your business generates leads, qualifies opportunities, follows up, and converts demand into revenue.',
-        helper: 'This review is built for founder-led businesses that want a clearer path from inquiry to revenue.',
+        helper: 'This review is built for founder-led businesses that want a clearer path from inquiry to revenue. Qualified businesses receive a tailored recommendation or proposal after review.',
         nextLabel: 'Start Review'
       },
       { name: 'business_name', label: 'What is the name of your business?', type: 'text', required: true, section: 'Business Snapshot' },
@@ -149,7 +149,7 @@
       { name: 'urgency', label: 'How urgent is this problem?', type: 'single', required: true, section: 'Goals & Fit', options: ['Immediate priority','Important this quarter','Exploring options'] },
       { name: 'looking_for_support', label: 'Are you actively looking for support to improve this process?', type: 'single', required: true, section: 'Goals & Fit', options: ['Yes, immediately','Yes, soon','Maybe','Just exploring'] },
       { name: 'investment_range', label: 'What level of investment are you open to if the solution is a strong fit?', type: 'single', required: true, section: 'Goals & Fit', options: ['Under $2,500','$2,500–$5,000','$5,000–$10,000','$10,000+','Not sure yet'] },
-      { name: 'best_time_for_call', label: 'What is the best time for a strategy call?', type: 'text', required: false, section: 'Goals & Fit' },
+      { name: 'best_time_for_call', label: 'If a short working call becomes useful, what timing usually works best for you?', type: 'text', required: false, section: 'Goals & Fit' },
       { type: 'thankyou', title: 'Thanks — Your Review Is In', description: 'Your responses have been captured. We will review them personally and follow up with the clearest next step.', helper: 'After you submit, here is what to expect next.' }
     ];
 
@@ -205,7 +205,9 @@
 
       return [
         `Expect a personal follow-up within ${RESPONSE_WINDOW}.`,
+        'We will review your submission personally and send the clearest recommendation or proposal if there is a strong next step.',
         'We do not rely on an automatic confirmation email as the next step.',
+        'If implementation is recommended, work begins only after scope approval and the initial payment step.',
         contactLine
       ].join(' ');
     }

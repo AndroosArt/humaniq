@@ -27,7 +27,7 @@ We reviewed your submission and prepared the recommended next step for `{{busine
 
 The short version: `{{one_line_recommendation}}`
 
-If you would like to move forward, reply with `approved` and we will send the acceptance and onboarding details. If you would prefer to talk it through first, we can schedule a short call.
+If you would like to move forward, reply with `approved` and we will send the invoice or deposit step along with onboarding details. If you would prefer to talk it through first, we can schedule a short call.
 
 Best,  
 Human IQ

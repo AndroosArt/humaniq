@@ -37,4 +37,4 @@ We recommend `{{recommended_approach_name}}` because `{{why_this_path}}`.
 `{{expected_outcome}}`
 
 ## Next Step
-If you would like to move forward, reply with `approved` and we will send the acceptance and onboarding details. If a short working call would be useful before that, we can schedule one.
+If you would like to move forward, reply with `approved` and we will send the invoice or deposit step along with onboarding details. If a short working call would be useful before that, we can schedule one.

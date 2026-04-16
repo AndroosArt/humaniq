@@ -31,7 +31,7 @@ We can see a meaningful opportunity to improve `{{primary_issue}}`, but the best
 
 That engagement would give you a tighter diagnosis, a clear recommendation, and a Practical AI Blueprint for what should happen first.
 
-If you would like to move forward, reply with `approved` and we will send the acceptance details.
+If you would like to move forward, reply with `approved` and we will send the invoice step and onboarding details.
 
 Best,  
 Human IQ
@@ -50,7 +50,7 @@ Your intake shows a clear opportunity to improve `{{primary_issue}}` and recover
 
 Our recommendation is a Strategy + Implementation Sprint focused on `{{sprint_focus}}`. This gives us a defined first phase to improve performance quickly without overcomplicating the business.
 
-If you would like to move ahead, reply with `approved` and we will send the acceptance and onboarding details.
+If you would like to move ahead, reply with `approved` and we will send the deposit step and onboarding details.
 
 Best,  
 Human IQ
@@ -69,7 +69,7 @@ Your business appears to have real demand and a meaningful opportunity to improv
 
 This would allow Human IQ to keep refining `{{focus_areas}}` in a practical, business-first way as the business grows.
 
-If you would like to discuss or approve that path, reply to this email and we will send the right next-step details.
+If you would like to discuss or approve that path, reply to this email and we will send the proposal, first payment step, and onboarding details.
 
 Best,  
 Human IQ

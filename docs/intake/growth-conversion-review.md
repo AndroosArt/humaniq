@@ -187,7 +187,7 @@
 * $10,000+
 * Not sure yet
 
-35. Best time for a strategy call
+35. If a short working call becomes useful, what timing usually works best for you?
 
 ---
 
@@ -981,10 +981,10 @@ Qualify leads, surface the highest-value conversion problems, and move serious p
 * $10,000+
 * Not sure yet
 
-#### 36. Best time for a strategy call
+#### 36. Optional working call timing
 
 **Type:** Short text
-**Question:** What is the best time for a strategy call?
+**Question:** If a short working call becomes useful, what timing usually works best for you?
 
 ---
 
@@ -1049,17 +1049,17 @@ Suggested hidden fields:
 ### Thank You Page Option A
 
 **Headline:** Thanks — Your Review Is In
-**Body:** We’ll review your responses and use them to shape a tailored growth and conversion recommendation.
+**Body:** We’ll review your responses and use them to shape the clearest tailored recommendation or proposal for your business.
 
 ### Thank You Page Option B
 
-**Headline:** Next Step: Book Your Strategy Call
-**Body:** If you’d like to move faster, you can book a strategy call now.
+**Headline:** Next Step: Watch for Your Recommendation
+**Body:** Qualified businesses receive a tailored recommendation or proposal after review. If a working call would be useful, Human IQ will suggest it.
 
 ### Recommended Setup
 
 * Default: show thank-you confirmation
-* Optional: redirect stronger leads to a calendar booking page
+* Optional: invite a working call only when clarification would help
 
 ---
 

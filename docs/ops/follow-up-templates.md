@@ -30,7 +30,7 @@ Thanks for submitting your Growth & Conversion Review.
 
 We reviewed your intake and the clearest next step is a Growth & Conversion Audit. There appears to be a meaningful opportunity to improve {{primary_problem}}, but the right order of operations should be confirmed before implementation starts.
 
-If you would like to move forward, reply here and we will send the acceptance details.
+If you would like to move forward, reply here and we will send the invoice step and onboarding details.
 
 Best,
 Human IQ
@@ -48,7 +48,7 @@ We reviewed your intake and there appears to be a clear opportunity to improve {
 
 Our recommendation is a Strategy + Implementation Sprint focused on the highest-value first phase.
 
-If you would like to move forward, reply here and we will send the acceptance and onboarding details.
+If you would like to move forward, reply here and we will send the deposit step and onboarding details.
 
 Best,
 Human IQ
@@ -64,7 +64,7 @@ Thanks for submitting your Growth & Conversion Review.
 
 We reviewed your intake and believe the strongest fit is an ongoing optimization engagement rather than a one-time recommendation alone.
 
-If you would like to move forward, reply here and we will send the next-step details.
+If you would like to move forward, reply here and we will send the proposal, first payment step, and onboarding details.
 
 Best,
 Human IQ

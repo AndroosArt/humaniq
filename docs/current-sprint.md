@@ -37,6 +37,10 @@ Operationalize the handoff from Growth & Conversion Review intake to async recom
 +Existing ops docs and review helper are now aligned to the four-path async model
 +Old call-first wording has been removed from the core founder handling flow
 +`lib/humaniq-review-ops.js` now outputs four-path recommendations, async-first follow-up copy, and updated tracker labels
++Acceptance workflow now exists as a defined launch-ready operating asset
++Onboarding checklist, welcome email, and intake request templates now exist under `templates/onboarding/`
++Implementation start standard now defines when work begins, how stabilization works, and when ongoing optimization should be proposed
++Landing page and intake copy now better match the async proposal-first model and optional-call positioning
 
 ## In Scope Now
 +Run the first real async review-to-proposal cycle end to end
@@ -45,6 +49,7 @@ Operationalize the handoff from Growth & Conversion Review intake to async recom
 +Tighten proposal, acceptance, and onboarding execution without adding infrastructure
 +Use the Practical AI Blueprint as a downstream paid deliverable when appropriate
 +Keep the old ops docs and scoring helper consistent with the new four-path system
++Use the acceptance and onboarding assets in the first real client handoff
 
 ## Out of Scope Now
 +Heavy CI/CD and deployment automation
@@ -57,10 +62,10 @@ Operationalize the handoff from Growth & Conversion Review intake to async recom
 1. Manually verify Formspree notification delivery (highest remaining risk)
 2. Confirm Formspree success behavior, limits, and any provider-side autoresponder settings manually
 3. Confirm approved pricing logic and proposal acceptance method for the four engagement paths
-4. Decide whether acceptance will happen by reply email, signed proposal, invoice payment, or a mix
+4. Confirm the exact v1 acceptance pattern by path: written approval, signed proposal, invoice/deposit, or a mix
 5. Test landing page CTA and intake on mobile device
 6. Run the first live async review-to-proposal workflow using the new docs and templates
-7. Decide whether the intake-facing reference doc should be trimmed further so it does not carry legacy sales-call guidance
+7. Run the first real acceptance-to-onboarding handoff using the new onboarding templates
 
 ## Live Flow
 +Landing page CTA sends visitors to `site/humaniq-review.html`
@@ -86,24 +91,29 @@ Operationalize the handoff from Growth & Conversion Review intake to async recom
 +`docs/sales/internal-review-checklist.md` — Under-10-minute QA and approval checklist
 +`docs/sales/offer-ladder.md` — Offer structure and naming
 +`docs/sales/onboarding-and-maintenance.md` — Post-acceptance model
++`docs/sales/acceptance-workflow.md` — Default commercial acceptance path
++`docs/sales/implementation-start-standard.md` — Delivery start and stabilization standard
 +`docs/sales/lead-status-pipeline.md` — Status pipeline and criteria
 +`templates/proposals/human-iq-proposal-template.md` — Client-facing proposal template
 +`templates/proposals/path-specific-outcomes.md` — Path-based response templates
 +`templates/emails/proposal-follow-up-sequence.md` — Async email sequence
++`templates/onboarding/new-client-onboarding-checklist.md` — Internal onboarding checklist
++`templates/onboarding/client-welcome-email.md` — Client welcome template
++`templates/onboarding/client-intake-request.md` — Post-sale intake request
 +`docs/launch/launch-development-plan.md` — Launch execution timeline
 +`docs/workflows/chatgpt-codex-software-development.md` — Development process
 
 ## What Remains Open
 +Approved pricing ranges or quoting logic for each paid path
-+Final decision on how acceptance is formally captured
-+Whether the landing page or intake UI copy should explicitly mention async approval and deposit-based acceptance
++Final decision on whether the audit path ever needs a signed proposal or only written approval plus invoice
 +First live use of the proposal template on a real or realistic lead
 +Decision on whether an audit proposal should mention the Practical AI Blueprint explicitly every time or only when justified
 +Whether lead-tier language should remain in internal ops docs long-term or be reduced once the path-based process is routine
++Whether the live site should mention timing for recommendation delivery more explicitly
 
 ## Next Decisions Needed From Andrew
 1. Confirm whether the paid strategy-first offer should be called `Growth & Conversion Audit` everywhere going forward
-2. Confirm the acceptance mechanism: email approval, proposal signature, invoice payment, or a simple combination
+2. Confirm the exact acceptance mix by path: email approval, signed proposal, invoice payment, or a simple combination
 3. Confirm whether pricing stays off-repo for now or whether internal price bands should be documented privately
 4. Confirm when a call should be required for ongoing partner engagements, if ever
 
