@@ -20,6 +20,9 @@ Move from integration into live founder operating mode for the Growth & Conversi
 +Founder review checklist now exists in `docs/ops/founder-review-checklist.md`
 +Submission payload now includes a founder review snapshot plus tracker-ready CSV fields for easier manual handling
 +Current focus: run and operate the first real founder review cycle with the existing flow
++First real founder ops cycle run: 2026-04-15 — test submission validated end to end
++Two small friction fixes applied to `lib/humaniq-review-ops.js`: greeting now uses first name only; medium follow-up prose cleaned up
++Formspree inbox delivery is still unverified in automated testing — manual check required
 
 ## In Scope Now
 +Run the first real founder ops cycle end to end
@@ -35,10 +38,11 @@ Move from integration into live founder operating mode for the Growth & Conversi
 +Non-essential dependencies
 
 ## Active Priorities
-1. Run the first real submission through the full founder ops cycle
-2. Confirm the Formspree inbox, tracker row, and first follow-up can all be handled without friction
-3. Start the first live review-to-Practical AI Blueprint conversion workflow
-4. Capture any recurring manual friction before considering automation
+1. Manually verify Formspree notification delivery (highest remaining risk)
+2. Confirm pricing / scope language is set on the landing page
+3. Test landing page CTA and intake on mobile device
+4. Start the first live review-to-Practical AI Blueprint conversion workflow
+5. Capture any recurring manual friction before considering automation
 
 ## Live Flow
 +Landing page CTA sends visitors to `site/humaniq-review.html`
