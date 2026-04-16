@@ -2,6 +2,8 @@
 
 Use these columns in Google Sheets, Airtable, Notion, or your preferred tracker:
 
+Ready-to-use repo asset: `docs/ops/lead-tracker.csv`
+
 - Date submitted
 - Business name
 - Website

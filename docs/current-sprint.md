@@ -1,7 +1,7 @@
 # Current Sprint
 
 ## Sprint Goal
-Bring real launch assets into the repo and align the funnel (landing page → intake → post-submit founder handling).
+Move from integration into live founder operating mode for the Growth & Conversion Review funnel.
 
 ## Status
 +GitHub is connected; main has been pushed
@@ -16,14 +16,17 @@ Bring real launch assets into the repo and align the funnel (landing page → in
 +Practical AI Blueprint remains the downstream deliverable
 +Post-submit ops pack has been integrated into the repo
 +Founder handling flow is now documented in `docs/ops/`
-+Next focus: test the full intake-to-follow-up handoff and confirm the first live founder workflow
++Lean tracker asset now exists in `docs/ops/lead-tracker.csv`
++Founder review checklist now exists in `docs/ops/founder-review-checklist.md`
++Submission payload now includes a founder review snapshot plus tracker-ready CSV fields for easier manual handling
++Current focus: run and operate the first real founder review cycle with the existing flow
 
 ## In Scope Now
-+Keep the landing page and intake flow aligned to the Growth & Conversion Review
-+Keep the live submission path lean and stable
-+Integrate the post-submit founder ops layer
-+Document the founder-ready handoff after intake submission
-+Use the Practical AI Blueprint as the downstream conversion path
++Run the first real founder ops cycle end to end
++Keep the live submission path lean, stable, and easy to review manually
++Use the tracker and follow-up process in real founder handling
++Tighten small practical gaps in submission review without adding infrastructure
++Use the Practical AI Blueprint as the downstream conversion path when qualified
 
 ## Out of Scope Now
 +Heavy CI/CD and deployment automation
@@ -32,16 +35,17 @@ Bring real launch assets into the repo and align the funnel (landing page → in
 +Non-essential dependencies
 
 ## Active Priorities
-1. Run a live end-to-end test from intake submission through founder follow-up handling
-2. Confirm the post-submit scoring, tracker, and follow-up outputs are usable in real founder ops
+1. Run the first real submission through the full founder ops cycle
+2. Confirm the Formspree inbox, tracker row, and first follow-up can all be handled without friction
 3. Start the first live review-to-Practical AI Blueprint conversion workflow
-4. Tighten any small gaps in the submission-to-tracker handoff without adding complexity
+4. Capture any recurring manual friction before considering automation
 
 ## Live Flow
 +Landing page CTA sends visitors to `site/humaniq-review.html`
 +The custom intake captures answers in-browser as the user progresses
 +On submit, the intake posts the review to the external endpoint configured in `site/humaniq-config.js`
 +The intake now also evaluates the submission with `lib/humaniq-review-ops.js` and attaches the founder ops summary to the submitted payload when available
++The submission payload now includes `ops_founder_review_snapshot` and `ops_tracker_row_csv` to support inbox-first review and manual tracker updates
 +The intake keeps a local copy of the latest submitted payload as a safety net during testing
 +New submissions route into Formspree first for launch-speed reliability, then into founder review, tracker updates, and follow-up
 
@@ -53,13 +57,15 @@ Bring real launch assets into the repo and align the funnel (landing page → in
 +`docs/ops/post-submit-operating-flow.md` — Founder handling flow
 +`docs/ops/follow-up-templates.md` — First response templates
 +`docs/ops/lead-tracker-columns.md` — Lean lead tracker structure
++`docs/ops/lead-tracker.csv` — Ready-to-use founder tracker
++`docs/ops/founder-review-checklist.md` — New submission review checklist
 +`docs/launch/launch-development-plan.md` — Launch execution timeline
 +`docs/workflows/chatgpt-codex-software-development.md` — Development process
 
 ## Definition of Done
 +Imported assets are in stable repo-friendly filenames and locations
 +Landing page runs locally and links to intake flow
-+Full funnel is testable from landing page → intake → submission capture
++Full funnel is usable from landing page → intake → submission capture → founder review → tracker update → first follow-up
 +Submission destination is easy to replace without changing the intake UI
 +Founder post-submit handling is documented and ready for real use
-+Next sprint can focus on the first live operating cycle
++The first live founder operating cycle can run without new infrastructure

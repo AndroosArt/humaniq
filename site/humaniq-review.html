@@ -427,6 +427,9 @@
         formData.append('ops_summary', payload.opsEvaluation.summary);
         formData.append('ops_follow_up_subject', payload.opsEvaluation.followUp.subject);
         formData.append('ops_follow_up_body', payload.opsEvaluation.followUp.body);
+        formData.append('ops_founder_review_snapshot', payload.opsEvaluation.founderReviewSnapshot);
+        formData.append('ops_tracker_columns_csv', payload.opsEvaluation.trackerCsvHeader);
+        formData.append('ops_tracker_row_csv', payload.opsEvaluation.trackerCsvRow);
         formData.append('ops_tracker_row_json', JSON.stringify(payload.opsEvaluation.trackerRow));
         formData.append('ops_evaluation_json', JSON.stringify(payload.opsEvaluation));
       }
@@ -484,6 +487,12 @@
         values: state.values,
         opsEvaluation,
       };
+
+      if (opsEvaluation) {
+        payload.opsFounderReviewSnapshot = opsEvaluation.founderReviewSnapshot;
+        payload.opsTrackerColumnsCsv = opsEvaluation.trackerCsvHeader;
+        payload.opsTrackerRowCsv = opsEvaluation.trackerCsvRow;
+      }
 
       try {
         if (FORM_ENDPOINT) {

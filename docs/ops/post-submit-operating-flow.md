@@ -18,6 +18,8 @@ Review first. Blueprint conversation second.
 6. Decide whether to invite a Practical AI Blueprint conversation.
 7. Update status and next action in the tracker.
 
+Use `docs/ops/founder-review-checklist.md` as the day-to-day inbox handling checklist.
+
 ## Response SLA
 - Strong lead: same business day
 - Medium lead: within 24 hours
