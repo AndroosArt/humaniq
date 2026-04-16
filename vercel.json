@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/site/index.html" },
+    { "source": "/review", "destination": "/site/humaniq-review.html" }
+  ]
+}
