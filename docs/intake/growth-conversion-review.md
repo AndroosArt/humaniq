@@ -284,16 +284,16 @@ Tools, ownership, tracking, and pipeline visibility are fragmented.
 
 ### D. Engagement Recommendation
 
-**1. Not a fit yet**
+**1. Not a Fit Yet**
 Use when business readiness, urgency, or budget is too low.
 
-**2. Strategy / audit only**
+**2. Growth & Conversion Audit**
 Use when the client needs clarity before implementation.
 
-**3. Strategy + implementation sprint**
+**3. Strategy + Implementation Sprint**
 Use when there is clear opportunity and readiness to act.
 
-**4. Ongoing optimization partner**
+**4. Ongoing Optimization Partner**
 Use when the client already has demand and needs continued refinement across lead flow, qualification, and follow-up.
 
 ---
@@ -331,10 +331,10 @@ Use when the client already has demand and needs continued refinement across lea
 
 ### Recommended Engagement Path
 
-* Not a fit yet
-* Strategy / audit only
-* Strategy + implementation sprint
-* Ongoing optimization partner
+* Not a Fit Yet
+* Growth & Conversion Audit
+* Strategy + Implementation Sprint
+* Ongoing Optimization Partner
 
 ### Notes for Sales Conversation
 
@@ -436,7 +436,9 @@ If this direction is aligned, the next step is to confirm priorities, define the
 
 ---
 
-## 5. Sales Call Flow
+## 5. Optional Working Call Flow
+
+Use this only when a live conversation would reduce risk, clarify scope, or help the buyer make a decision. It is not the default path.
 
 ### Opening
 
@@ -478,7 +480,7 @@ If this direction is aligned, the next step is to confirm priorities, define the
 * Some traction
 * Problem is real but not fully defined
 * Moderate urgency
-* Likely fit for strategy first
+* Likely fit for an audit-first path
 
 ### Weak lead
 
@@ -532,13 +534,13 @@ Human IQ helps businesses generate, qualify, and convert more opportunities by c
 
 ### First Offer Framing
 
-**Human IQ Growth & Conversion Audit**
-A focused review of how your business generates leads, qualifies opportunities, follows up, and converts demand into revenue—along with clear, practical recommendations to improve results.
+**Human IQ Growth & Conversion Review**
+A focused intake-led review of how your business generates leads, qualifies opportunities, follows up, and converts demand into revenue.
 
 ### CTA Options
 
 * Start My Growth Review
-* Get My Conversion Audit
+* Get My Growth Review
 * Review My Lead Process
 * See Where I’m Losing Revenue
 
@@ -617,7 +619,7 @@ The result is not just more technology—it’s a better-performing business.
 
 ### Form Goal
 
-Qualify leads, surface the highest-value conversion problems, and move serious prospects into a strategy conversation.
+Qualify leads, surface the highest-value conversion problems, and move serious prospects into the right async recommendation or proposal path.
 
 ### Form Style Direction
 

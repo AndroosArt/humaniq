@@ -34,6 +34,9 @@ Operationalize the handoff from Growth & Conversion Review intake to async recom
 +Internal review, proposal, follow-up, onboarding, and pipeline assets now exist in repo-ready form
 +Offer ladder now separates the free Growth & Conversion Review from the paid Growth & Conversion Audit
 +Post-acceptance path is now documented from acceptance through stabilization and ongoing optimization
++Existing ops docs and review helper are now aligned to the four-path async model
++Old call-first wording has been removed from the core founder handling flow
++`lib/humaniq-review-ops.js` now outputs four-path recommendations, async-first follow-up copy, and updated tracker labels
 
 ## In Scope Now
 +Run the first real async review-to-proposal cycle end to end
@@ -41,6 +44,7 @@ Operationalize the handoff from Growth & Conversion Review intake to async recom
 +Use the new sales docs and templates in real founder handling
 +Tighten proposal, acceptance, and onboarding execution without adding infrastructure
 +Use the Practical AI Blueprint as a downstream paid deliverable when appropriate
++Keep the old ops docs and scoring helper consistent with the new four-path system
 
 ## Out of Scope Now
 +Heavy CI/CD and deployment automation
@@ -56,6 +60,7 @@ Operationalize the handoff from Growth & Conversion Review intake to async recom
 4. Decide whether acceptance will happen by reply email, signed proposal, invoice payment, or a mix
 5. Test landing page CTA and intake on mobile device
 6. Run the first live async review-to-proposal workflow using the new docs and templates
+7. Decide whether the intake-facing reference doc should be trimmed further so it does not carry legacy sales-call guidance
 
 ## Live Flow
 +Landing page CTA sends visitors to `site/humaniq-review.html`
@@ -91,9 +96,10 @@ Operationalize the handoff from Growth & Conversion Review intake to async recom
 ## What Remains Open
 +Approved pricing ranges or quoting logic for each paid path
 +Final decision on how acceptance is formally captured
-+Whether to update `docs/ops/` and `lib/humaniq-review-ops.js` to match the new four-path async model exactly
++Whether the landing page or intake UI copy should explicitly mention async approval and deposit-based acceptance
 +First live use of the proposal template on a real or realistic lead
 +Decision on whether an audit proposal should mention the Practical AI Blueprint explicitly every time or only when justified
++Whether lead-tier language should remain in internal ops docs long-term or be reduced once the path-based process is routine
 
 ## Next Decisions Needed From Andrew
 1. Confirm whether the paid strategy-first offer should be called `Growth & Conversion Audit` everywhere going forward

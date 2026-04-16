@@ -24,7 +24,7 @@ Ready-to-use repo asset: `docs/ops/lead-tracker.csv`
 - Engagement recommendation
 - Lead tier
 - Response SLA
-- Offer Blueprint conversation
+- Optional call recommended
 - Status
 - Owner
 - Next action
