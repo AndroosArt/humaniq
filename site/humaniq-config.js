@@ -3,5 +3,7 @@ window.HUMANIQ_CONFIG = window.HUMANIQ_CONFIG || {
     provider: 'formspree',
     endpoint: 'https://formspree.io/f/xaqaqawe',
     destinationLabel: 'Formspree',
+    responseWindow: '1-2 business days',
+    manualContactEmail: '',
   },
 };

@@ -22,7 +22,9 @@
 - [x] Build or refine the landing page
 - [x] Finalize intake flow
 - [x] Configure a live submission destination for the custom intake
+- [x] Make submit success and failure messaging clear without depending on a provider autoresponder
 - [ ] Test landing page CTA behavior on desktop and mobile
+- [ ] Manually verify Formspree delivery, limits, and any autoresponder behavior in the provider dashboard
 - [x] Prepare founder operating notes for delivery and follow-up
 
 ## Post-Setup

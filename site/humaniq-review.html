@@ -86,12 +86,16 @@
       provider: 'formspree',
       endpoint: '',
       destinationLabel: 'local storage only',
+      responseWindow: '1-2 business days',
+      manualContactEmail: '',
     };
     const submissionConfig = {
       ...defaultSubmissionConfig,
       ...(window.HUMANIQ_CONFIG?.reviewSubmission || {}),
     };
     const FORM_ENDPOINT = submissionConfig.endpoint;
+    const RESPONSE_WINDOW = submissionConfig.responseWindow || defaultSubmissionConfig.responseWindow;
+    const MANUAL_CONTACT_EMAIL = submissionConfig.manualContactEmail || '';
 
     const screens = [
       {
@@ -146,7 +150,7 @@
       { name: 'looking_for_support', label: 'Are you actively looking for support to improve this process?', type: 'single', required: true, section: 'Goals & Fit', options: ['Yes, immediately','Yes, soon','Maybe','Just exploring'] },
       { name: 'investment_range', label: 'What level of investment are you open to if the solution is a strong fit?', type: 'single', required: true, section: 'Goals & Fit', options: ['Under $2,500','$2,500–$5,000','$5,000–$10,000','$10,000+','Not sure yet'] },
       { name: 'best_time_for_call', label: 'What is the best time for a strategy call?', type: 'text', required: false, section: 'Goals & Fit' },
-      { type: 'thankyou', title: 'Thanks — Your Review Is In', description: 'Your responses have been captured. We’ll review them personally and follow up with a tailored recommendation within 1–2 business days.', helper: 'Keep an eye on your inbox. If you have questions in the meantime, you can reply directly to our confirmation email.' }
+      { type: 'thankyou', title: 'Thanks — Your Review Is In', description: 'Your responses have been captured. We will review them personally and follow up with the clearest next step.', helper: 'After you submit, here is what to expect next.' }
     ];
 
     const state = {
@@ -154,6 +158,8 @@
       values: loadValues(),
       isDarkMode: document.documentElement.classList.contains('dark'),
       isSubmitting: false,
+      submitError: '',
+      lastSubmissionStatus: loadLastSubmissionStatus(),
     };
 
     const screenEl = document.getElementById('screen');
@@ -171,8 +177,46 @@
       }
     }
 
+    function loadLastSubmissionStatus() {
+      try {
+        return JSON.parse(localStorage.getItem(`${STORAGE_KEY}-last-submission-status`) || 'null');
+      } catch {
+        return null;
+      }
+    }
+
     function persistValues() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.values));
+    }
+
+    function persistSubmissionStatus(status) {
+      state.lastSubmissionStatus = status;
+      localStorage.setItem(`${STORAGE_KEY}-last-submission-status`, JSON.stringify(status));
+    }
+
+    function clearSubmitError() {
+      state.submitError = '';
+    }
+
+    function buildThankYouHelper() {
+      const contactLine = MANUAL_CONTACT_EMAIL
+        ? `If you need to reach us directly, email ${MANUAL_CONTACT_EMAIL}.`
+        : 'If you do not hear from us in that window, follow up directly using the Human IQ contact channel you already have.';
+
+      return [
+        `Expect a personal follow-up within ${RESPONSE_WINDOW}.`,
+        'We do not rely on an automatic confirmation email as the next step.',
+        contactLine
+      ].join(' ');
+    }
+
+    function buildFailureMessage() {
+      const retryNote = 'Your answers are still saved in this browser, so you can try again without re-entering the form.';
+      const contactLine = MANUAL_CONTACT_EMAIL
+        ? `If the issue continues, email ${MANUAL_CONTACT_EMAIL} and mention that your review submission did not go through.`
+        : 'If the issue continues, contact Human IQ directly and mention that your review submission did not go through.';
+
+      return `${retryNote} ${contactLine}`;
     }
 
     function countProgressScreens() {
@@ -249,7 +293,9 @@
             <h2 class="mt-4 text-3xl font-semibold tracking-tight">${escapeHtml(screen.title)}</h2>
             <p class="mt-5 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">${escapeHtml(screen.description)}</p>
             <div class="mt-8 rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-black/30 p-5">
-              <p class="text-sm text-zinc-700 dark:text-zinc-300">${escapeHtml(screen.helper)}</p>
+              <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">${escapeHtml(screen.helper)}</p>
+              <p class="mt-3 text-sm text-zinc-700 dark:text-zinc-300">${escapeHtml(buildThankYouHelper())}</p>
+              ${state.lastSubmissionStatus?.provider ? `<p class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Submission route: ${escapeHtml(state.lastSubmissionStatus.provider)}${state.lastSubmissionStatus.timestamp ? ` on ${escapeHtml(state.lastSubmissionStatus.timestamp)}` : ''}</p>` : ''}
             </div>
           </div>
         `;
@@ -259,6 +305,7 @@
       nextBtn.textContent = state.index === screens.length - 2 ? 'Submit Review' : 'Continue';
       screenEl.innerHTML = renderQuestion(screen);
       attachInputHandlers(screen);
+      renderSubmitError();
     }
 
     function renderQuestion(screen) {
@@ -400,6 +447,17 @@
       document.getElementById('validationError')?.remove();
     }
 
+    function renderSubmitError() {
+      document.getElementById('submitError')?.remove();
+      if (!state.submitError || ['welcome', 'thankyou', 'section'].includes(screens[state.index].type)) return;
+
+      const el = document.createElement('div');
+      el.id = 'submitError';
+      el.className = 'mt-6 rounded-2xl border border-rose-200 bg-rose-50 px-5 py-4 text-sm text-rose-700';
+      el.textContent = state.submitError;
+      screenEl.appendChild(el);
+    }
+
     function buildSubmissionFormData(payload) {
       const formData = new FormData();
       formData.append('_subject', 'New Human IQ Growth & Conversion Review');
@@ -477,6 +535,7 @@
     async function handleSubmit() {
       if (state.isSubmitting) return;
       state.isSubmitting = true;
+      clearSubmitError();
       nextBtn.disabled = true;
       nextBtn.textContent = 'Submitting...';
 
@@ -494,6 +553,8 @@
         payload.opsTrackerRowCsv = opsEvaluation.trackerCsvRow;
       }
 
+      localStorage.setItem(`${STORAGE_KEY}-last-submission-attempt`, JSON.stringify(payload));
+
       try {
         if (FORM_ENDPOINT) {
           const response = await fetch(FORM_ENDPOINT, {
@@ -506,18 +567,35 @@
           console.info(`No external submission endpoint configured. Review payload saved to local storage only.`, payload);
         }
         localStorage.setItem(`${STORAGE_KEY}-last-submission`, JSON.stringify(payload));
+        persistSubmissionStatus({
+          ok: true,
+          provider: submissionConfig.destinationLabel || submissionConfig.provider || 'configured endpoint',
+          timestamp: new Date().toLocaleString(),
+        });
         state.index += 1;
         render();
       } catch (error) {
-        alert('Your review could not be submitted yet. Please try again or contact Human IQ directly.');
+        persistSubmissionStatus({
+          ok: false,
+          provider: submissionConfig.destinationLabel || submissionConfig.provider || 'configured endpoint',
+          timestamp: new Date().toLocaleString(),
+          error: error?.message || 'Submission failed',
+        });
+        state.submitError = `Your review was not submitted yet. ${buildFailureMessage()}`;
+        renderSubmitError();
         console.error(error);
       } finally {
         state.isSubmitting = false;
+        if (screens[state.index]?.type !== 'thankyou') {
+          nextBtn.textContent = 'Submit Review';
+          nextBtn.disabled = false;
+        }
       }
     }
 
     function handleNext() {
       clearValidationError();
+      clearSubmitError();
       const screen = screens[state.index];
 
       if (screen.type === 'thankyou') {
